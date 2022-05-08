@@ -251,6 +251,7 @@ header button, footer button, header input[type=submit], footer[type=submit] {
 
 .mwf-left-align {
     float: left;
+    align-items: center;
     /*justify-content: flex-start;*/
 }
 
@@ -267,9 +268,9 @@ header button, footer button, header input[type=submit], footer[type=submit] {
 /*    margin-right: auto;*/
 /*}*/
 
-/*.mwf-left-fill {*/
-/*    margin-left: auto;*/
-/*}*/
+.mwf-left-fill {
+    margin-left: auto;
+}
 
 /* end of flex box based alignment */
 
@@ -347,6 +348,18 @@ header button, footer button, header input[type=submit], footer[type=submit] {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.mwf-dialog h3 {
+    font-weight: normal;
+    color: black;
+    font-size: 16pt;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .mwf-dialog form {
