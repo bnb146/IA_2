@@ -140,7 +140,7 @@ export default class ListviewViewController extends mwf.ViewController {
                     this.hideDialog();
                 }),
                 resetItem: ((event) => {
-                    item.
+                    this.markAsObsolete();
                     this.hideDialog();
                 })
 

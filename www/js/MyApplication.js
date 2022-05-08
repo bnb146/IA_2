@@ -27,7 +27,7 @@ class MyApplication extends mwf.Application {
 
         console.log("MyApplication.oncreate(): local database initialised");
 
-        await GenericCRUDImplRemote.newInstance()
+        //await GenericCRUDImplRemote.newInstance()
         //// TODO-REPEATED: if entity manager is used, register entities and crud operations for the entity types
         //this.registerEntity("MyEntity", entities.MyEntity, true);
         //this.registerCRUD("MyEntity", this.CRUDOPS.LOCAL, GenericCRUDImplLocal.newInstance("MyEntity"));
