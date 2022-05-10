@@ -1,0 +1,7 @@
+
+# Default ignored files
+/workspace.xml
+
+#ignore these folders
+/node_modules/
+/www/lib/css/img/
