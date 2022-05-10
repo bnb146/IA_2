@@ -1,11 +1,9 @@
 # ignore theses folders
-.idea/
 node_modules/
 www/lib/css/img/
-mdb/mdbdata/db
+
 
 # ignore theses files
-README
 jslint_settings.png
 
 # Logs
