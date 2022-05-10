@@ -251,7 +251,6 @@ header button, footer button, header input[type=submit], footer[type=submit] {
 
 .mwf-left-align {
     float: left;
-    align-items: center;
     /*justify-content: flex-start;*/
 }
 
@@ -522,6 +521,12 @@ input {
     border: none;
     color: white;
     font-size: 12pt;
+}
+
+input.mwf-center-align {
+    width: auto;
+    height: 100%;
+    background-color: black;
 }
 
 fieldset img {

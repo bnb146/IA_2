@@ -51,9 +51,8 @@
         </ul>
     </main>
     <footer>
-        <div class="mwf-left-align cta-toggle-curdescope"></div>
-        <button class="mwf-right-align mwf-imgbutton mwf-img-refresh cta-toggleGlobalLayoutAction">
-        </button>
+        <input class="mwf-center-align" type="button" value="local"/>
+        <button class="mwf-right-align mwf-imgbutton mwf-img-refresh"/>
     </footer>
 </div>
 
@@ -105,11 +104,11 @@
 </div>
 
 //Popup Dialog löschen
-<div class="mwf-dialog mwf-popup mwf-template mwf-databind" data-mwf-viewcontroller="GenericDialogTemplateViewController"
+<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="GenericDialogTemplateViewController"
       data-mwf-templatename="deleteItemDialog">
     <main>
         <h2>Medium löschen</h2>
-        <h3 class="mwf-dyncontent">Möchten Sie das Medium {{item.title}} löschen?</h3>
+        <h3 class="mwf-dyncontent">{{item.title}}</h3>
         <form id="deleteItemForm" on-submit="submitForm">
             <div class="mwf-buttonbar">
                 <button class="mwf-left-align mwf-button" on-click="resetItem">Abbrechen</button>

@@ -1,7 +1,7 @@
 /**
  * @author Jörn Kreutel
  */
-import {mwf} from "../Main.js";
+import {EntityManager, mwf} from "../Main.js";
 import {entities} from "../Main.js";
 //import {GenericCRUDImplLocal} from "../Main.js";
 
@@ -48,6 +48,22 @@ export default class ListviewViewController extends mwf.ViewController {
                 this.removeFromListview(event.data);
         }));
 
+
+        this.switchCRUDOperationsElement = this.root.querySelector("footer .mwf-img-refresh");
+        this.switchCRUDOperationsElement.onclick = () => {
+            if(this.application.currentCRUDScope == "local") {
+                // switch to remote
+                this.application.switchCRUD("remote", EntityManager)
+            }
+            else {
+                // switch to local
+                this.application.switchCRUD("local", EntityManager)
+            }
+            entities.MediaItem.readAll().then(items => {
+                this.initialiseListview(items);
+            });
+            this.root.querySelector("footer .mwf-center-align").value = this.application.currentCRUDScope;
+        }
 
         entities.MediaItem.readAll().then((items) => {
             this.initialiseListview(items);
@@ -140,7 +156,7 @@ export default class ListviewViewController extends mwf.ViewController {
                     this.hideDialog();
                 }),
                 resetItem: ((event) => {
-                    this.markAsObsolete();
+                    //this.markAsObsolete();
                     this.hideDialog();
                 })
 
@@ -173,5 +189,10 @@ export default class ListviewViewController extends mwf.ViewController {
             }
         });
     }
+    resetItem() {
+        this.markAsObsolete();
+        this.hideDialog();
+    }
+
 }
 
