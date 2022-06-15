@@ -73,6 +73,31 @@
     </div>
 </div>
 
+//FormularAnsicht
+<div class="mwf-view " id="mediaEditview" data-mwf-viewcontroller="EditviewViewController">
+    <div class="mwf-template mwf-databind" data-mwf-templatename="mediaEditviewTemplate">
+        <header>
+            <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align" /></button>
+            <h1 class="mwf-dyncontent">{{item.title}}</h1>
+            <input class="mwf-imgbutton mwf-img-disk mwf-right-align" type="submit" form="mediaEditViewForm">
+            <button class="mwf-imgbutton mwf-img-delete mwf-right-align"
+                    disabled="{{#unless item.created}}disabled{{/unless}}" on-click="deleteItem" ></button>
+        </header>
+        <main>
+
+                <form id="mediaEditViewForm">
+                    <input type="url" name="src" placeholder="Url" value="{{item.src}}"/>
+                    <input type="text" name="title" placeholder="Titel" value="{{item.title}}"/>
+                    <!--<textarea name="description" placeholder="Beschreibung" rows="20" value="{{item.description}}"/>-->
+                </form>
+
+        </main>
+        <footer>
+            <button class="mwf-left-align mwf-imgbutton mwf-img-backward mwf-back "></button>
+        </footer>
+    </div>
+</div>
+
 <div data-mwf-templatename="mediaItemMenu" class="mwf-listitem-menu mwf-template mwf-databind mwf-dialog mwf-popup">
     <header>
         <h2 class="mwf-dyncontent">{{title}} {{_id}}</h2>
@@ -80,7 +105,8 @@
     <main>
         <ul>
             <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="deleteItem">Löschen</li>
-            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="editItem">Editieren</li>
+            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetview="mediaEditview">Editieren</li>
+            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="">Kopieren</li>
         </ul>
     </main>
 </div>

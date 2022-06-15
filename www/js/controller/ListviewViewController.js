@@ -35,7 +35,7 @@ export default class ListviewViewController extends mwf.ViewController {
         this.initialiseListview(this.items);
         this.addNewMediaItemElement = this.root.querySelector("#addNewMediaItem");
         this.addNewMediaItemElement.onclick = (() => {
-            this.createNewItem();
+            this.nextView("mediaEditview", {item: new entities.MediaItem()});
         });
 
         this.addListener(new mwf.EventMatcher("crud","created","MediaItem"),((event) => {
@@ -121,15 +121,24 @@ export default class ListviewViewController extends mwf.ViewController {
      */
     async onReturnFromNextView(nextviewid, returnValue, returnStatus) {
         // TODO: check from which view, and possibly with which status, we are returning, and handle returnValue accordingly
-        if (nextviewid == "mediaReadview" && returnValue &&
-            returnValue.deletedItem) {
-            this.removeFromListview(returnValue.deletedItem._id);
+        if (nextviewid == "mediaReadview" || nextviewid == "mediaEditview") {
+            if(returnValue) {
+                if(returnValue.deletedItem) {
+                    this.removeFromListview(returnValue.deletedItem._id);
+                }
+                else if (returnValue.createdItem) {
+                    this.addToListview(returnValue.createdItem);
+                }
+                else if (returnValue.updatedItem) {
+                    this.updateInListview(returnValue.updatedItem._id, returnValue.updatedItem);
+                }
+            }
+
         }
     }
 
-    createNewItem() {
-        var newItem = new
-        entities.MediaItem("","https://placekitten.com/100/100");
+    createNewItem(item) {
+        var newItem = new entities.MediaItem(item.title, item.source);
         this.showDialog("mediaItemDialog",{
             item: newItem,
             actionBindings: {
