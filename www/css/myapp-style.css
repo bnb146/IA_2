@@ -1,5 +1,5 @@
 /* TODO: add any application specific styling here */
-#mediaReadview img {
+#mediaReadview main img, #mediaEditview main img {
     width: 100%;
     max-width: 100%;
 }

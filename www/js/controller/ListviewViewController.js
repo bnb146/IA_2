@@ -155,17 +155,16 @@ export default class ListviewViewController extends mwf.ViewController {
 
     deleteItem(item) {
         this.showDialog("deleteItemDialog",{
-            item: this.item,
+            item: item,
             actionBindings: {
-                submitForm: ((event) => {
+                submitDeleteForm: ((event) => {
                     event.original.preventDefault();
-                    item.delete(() => {
+                    item.delete().then(() => {
                         //this.removeFromListview(item._id);
                     });
                     this.hideDialog();
                 }),
-                resetItem: ((event) => {
-                    //this.markAsObsolete();
+                resetDialog: ((event) => {
                     this.hideDialog();
                 })
 
@@ -177,10 +176,6 @@ export default class ListviewViewController extends mwf.ViewController {
 
     }
     editItem(item) {
-        item.title = (item.title);
-        /*this.crudops.update(item._id,item).then(() => {
-            this.updateInListview(item._id,item);
-        });*/
         this.showDialog("mediaItemDialog", {
             item: item,
             actionBindings: {
@@ -192,8 +187,17 @@ export default class ListviewViewController extends mwf.ViewController {
                     this.hideDialog();
                 }),
                 deleteItem: ((event) => {
+                    this.hideDialog();
                     this.deleteItem(item);
-                    //this.hideDialog();
+                }),
+                copyItem: ((event) => {
+                    alert("MediaItem kopiert" + JSON.stringify(copyItem));
+                    this.hideDialog();
+                    const copyItem = new entities.MediaItem(item.title, item.source);
+
+                    copyItem.create().then(() => {
+                        //this.addToListView(item);
+                    });
                 })
             }
         });

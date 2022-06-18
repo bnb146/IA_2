@@ -78,16 +78,26 @@
     <div class="mwf-template mwf-databind" data-mwf-templatename="mediaEditviewTemplate">
         <header>
             <button class="mwf-imgbutton mwf-img-sandwich mwf-left-align" /></button>
-            <h1 class="mwf-dyncontent">{{item.title}}</h1>
+            <h1 class="mwf-dyncontent">{{#unless item.title}}Neues Medium{{/unless}}{{item.title}}</h1>
             <input class="mwf-imgbutton mwf-img-disk mwf-right-align" type="submit" form="mediaEditViewForm">
             <button class="mwf-imgbutton mwf-img-delete mwf-right-align"
                     disabled="{{#unless item.created}}disabled{{/unless}}" on-click="deleteItem" ></button>
+            <button class="mwf-imgbutton mwf-img-paste mwf-right-align"
+                    disabled="{{#if item.created}}disabled{{/if}}" on-click="defaultUrl"></button>
         </header>
-        <main>
-
+        <main class="mwf-scrollview">
                 <form id="mediaEditViewForm">
-                    <input type="url" name="src" placeholder="Url" value="{{item.src}}"/>
-                    <input type="text" name="title" placeholder="Titel" value="{{item.title}}"/>
+                    <fieldset class="mwf-material">
+                        <legend>Url</legend>
+                        <input class="mwf-material-altinput-target" pattern="http://.*|https://.*|blob:.*|content/.*" name="src" value="{{item.src}}" required="required"/>
+                        <input id="srcfileInput" type="file" name="srcfile" class="mwf-material-altinput" accept="image/*, video/*"/>
+                        <label class="mwf-imgbutton mwf-img-camera  mwf-material-altinput" for="srcfileInput"></label>
+                    </fieldset>
+                    <img src="{{#if item.created}}{{item.src}}{{/if}}"/>
+                    <fieldset class="mwf-material">
+                        <legend>Titel</legend>
+                        <input type="text" name="title" value="{{item.title}}" required="required"/>
+                    </fieldset>
                     <!--<textarea name="description" placeholder="Beschreibung" rows="20" value="{{item.description}}"/>-->
                 </form>
 
@@ -98,6 +108,7 @@
     </div>
 </div>
 
+//Action Dialog
 <div data-mwf-templatename="mediaItemMenu" class="mwf-listitem-menu mwf-template mwf-databind mwf-dialog mwf-popup">
     <header>
         <h2 class="mwf-dyncontent">{{title}} {{_id}}</h2>
@@ -105,8 +116,9 @@
     <main>
         <ul>
             <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="deleteItem">Löschen</li>
-            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetview="mediaEditview">Editieren</li>
-            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="">Kopieren</li>
+            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="editItem">Editieren</li>
+            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetview="mediaEditview">Editieren (FRM)</li>
+            <li class="mwf-li-singletitle mwf-menu-item" data-mwf-targetaction="copyItem">Kopieren</li>
         </ul>
     </main>
 </div>
@@ -130,14 +142,16 @@
 </div>
 
 //Popup Dialog löschen
-<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component" data-mwf-viewcontroller="GenericDialogTemplateViewController"
+<div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component"
+      data-mwf-viewcontroller="GenericDialogTemplateViewController"
       data-mwf-templatename="deleteItemDialog">
     <main>
         <h2>Medium löschen</h2>
-        <h3 class="mwf-dyncontent">{{item.title}}</h3>
-        <form id="deleteItemForm" on-submit="submitForm">
+
+        <form id="deleteItemForm" on-submit="submitDeleteForm">
+            <h3>Wollen Sie das Medium{{item.title}} wirklich löschen</h3>
             <div class="mwf-buttonbar">
-                <button class="mwf-left-align mwf-button" on-click="resetItem">Abbrechen</button>
+                <button class="mwf-left-align mwf-button" on-click="resetDialog">Abbrechen</button>
                 <input class="mwf-button-prio mwf-right-align mwf-button" type="submit" value="Löschen">
             </div>
         </form>
